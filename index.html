@@ -34,35 +34,102 @@
     </script>
 
     <script>
-      test("Teste erro de troco", (assert) => {
+      
+      test("Teste troco com erro - Dinheiro insuficiente", (assert) => {
+        const estoque = {
+          100: 1,
+          50: 0,
+          20: 0,
+          10: 0,
+          5: 0,
+          2: 0,
+          1: 0
+        }
         assert.throws(() => {
-          calcularTroco(100, 50);
-        });
+          calcularTroco(120, 100, estoque);
+        }, "Dinheiro insuficiente");
       });
 
-      test("Teste troco zero", (assert) => {
-        const troco = calcularTroco(100, 100);
+      test("Teste troco com estoque limitado", (assert) => {
+        const estoque = {
+          100: 1,
+          50: 0,
+          20: 0,
+          10: 0,
+          5: 0,
+          2: 0,
+          1: 0
+        }
+        
+        assert.throws(() => {
+          calcularTroco(50, 200, estoque);
+        }, "Troco indisponível com o estoque atual");
+      });
+
+      test("Teste troco com estoque suficiente", (assert) => {
+        const estoque = {
+          100: 2,
+          50: 1,
+          20: 5,
+          10: 5,
+          5: 5,
+          2: 5,
+          1: 5
+        }
+        
+        const troco = calcularTroco(75, 300, estoque);
+        const trocoEsperado = [100, 100, 20, 5];
+        assert.deepEqual(troco, trocoEsperado);
+      });
+
+      test("Teste troco com estoque insuficiente", (assert) => {
+        const estoque = {
+          100: 0,
+          50: 0,
+          20: 1,
+          10: 0,
+          5: 0,
+          2: 1,
+          1: 2
+        }
+        
+        assert.throws(() => {
+          calcularTroco(63, 200, estoque);
+        }, "Troco indisponível com o estoque atual");
+      });
+
+      test("Teste troco com estoque complexo", (assert) => {
+        const estoque = {
+          100: 1,
+          50: 1,
+          20: 2,
+          10: 1,
+          5: 1,
+          2: 3,
+          1: 0
+        }
+        
+        const troco = calcularTroco(63, 200, estoque);
+        const trocoEsperado = [100, 20, 10, 5, 2];
+        assert.deepEqual(troco, trocoEsperado);
+      });
+
+      test("Teste troco exato", (assert) => {
+        const estoque = {
+          100: 1,
+          50: 1,
+          20: 1,
+          10: 1,
+          5: 1,
+          2: 1,
+          1: 1
+        }
+        
+        const troco = calcularTroco(188, 188, estoque);
         const trocoEsperado = [];
         assert.deepEqual(troco, trocoEsperado);
       });
-
-      test("Teste troco simples", (assert) => {
-        const troco = calcularTroco(100, 150);
-        const trocoEsperado = [50];
-        assert.deepEqual(troco, trocoEsperado);
-      });
-
-      test("Teste troco complexo", (assert) => {
-        const troco = calcularTroco(75, 200);
-        const trocoEsperado = [100, 20, 5];
-        assert.deepEqual(troco, trocoEsperado);
-      });
-
-      test("Teste troco muito complexo", (assert) => {
-        const troco = calcularTroco(63, 500);
-        const trocoEsperado = [100, 100, 100, 100, 20, 10, 5, 2];
-        assert.deepEqual(troco, trocoEsperado);
-      });
+      
     </script>
 
   </body>
