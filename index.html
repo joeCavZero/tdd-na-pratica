@@ -15,20 +15,27 @@
     <script src="https://code.jquery.com/qunit/qunit-1.18.0.js"></script>
 
     <script>
-      function calcularTroco(preco, dinheiroRecebido) {
+      function calcularTroco(preco, dinheiroRecebido, estoque) {
         if (dinheiroRecebido < preco) {
-          throw new Error("Dinheiro insuficiente.");
+          throw new Error("Dinheiro insuficiente");
         }
 
         const notas = [100, 50, 20, 10, 5, 2, 1];
         let troco = dinheiroRecebido - preco;
         const trocoNotas = [];
+
         for (let nota of notas) {
-          while (troco >= nota) {
+          while (troco >= nota && estoque[nota] > 0) {
             trocoNotas.push(nota);
             troco -= nota;
+            estoque[nota]--;
           }
         }
+
+        if (troco > 0) {
+          throw new Error("Troco indisponível com o estoque atual");
+        }
+
         return trocoNotas;
       }
     </script>
