@@ -20,7 +20,16 @@
           throw new Error("Dinheiro insuficiente.");
         }
 
-        return [50];
+        const notas = [100, 50, 20, 10, 5, 2, 1];
+        let troco = dinheiroRecebido - preco;
+        const trocoNotas = [];
+        for (let nota of notas) {
+          while (troco >= nota) {
+            trocoNotas.push(nota);
+            troco -= nota;
+          }
+        }
+        return trocoNotas;
       }
     </script>
 
@@ -51,7 +60,7 @@
 
       test("Teste troco muito complexo", (assert) => {
         const troco = calcularTroco(63, 500);
-        const trocoEsperado = [200, 200, 20, 10, 5, 2];
+        const trocoEsperado = [100, 100, 100, 100, 20, 10, 5, 2];
         assert.deepEqual(troco, trocoEsperado);
       });
     </script>
