@@ -19,15 +19,16 @@
     </script>
 
     <script>
-      // Isso é o que um pequeno teste unitário parece:
-      test('Esse teste de exemplo deve passar sempre', (assert) => {
-        const resultado = 1 + 1
-        assert.equal(resultado, 2) // apenas para sabermos se tudo está funcionando bem
-      })
-      // Um teste falhando estará colorido como vermelho:
-      test('Esse é como um teste falhando parece', (assert) => {
-        const resultado = [1,2,3].indexOf(1)  // O valor de 'resultado' será 0 (zero)
-        assert.equal(resultado, -1) // Nós esperamos que essa validação falhe
+      test("Teste erro de troco", (assert) => {
+        assert.throws(() => {
+          calcularTroco(100, 50);
+        });
+      });
+
+      test("Teste troco simples", (assert) => {
+        const troco = calcularTroco(100, 150);
+        const trocoEsperado = [50];
+        assert.deepEqual(troco, trocoEsperado);
       })
     </script>
 
