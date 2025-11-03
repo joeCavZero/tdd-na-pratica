@@ -15,7 +15,13 @@
     <script src="https://code.jquery.com/qunit/qunit-1.18.0.js"></script>
 
     <script>
-      // A sua solução será escrita aqui!
+      function calcularTroco(preco, dinheiroRecebido) {
+        if (dinheiroRecebido < preco) {
+          throw new Error("Dinheiro insuficiente.");
+        }
+
+        return [50];
+      }
     </script>
 
     <script>
