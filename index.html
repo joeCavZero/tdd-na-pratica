@@ -31,11 +31,29 @@
         });
       });
 
+      test("Teste troco zero", (assert) => {
+        const troco = calcularTroco(100, 100);
+        const trocoEsperado = [];
+        assert.deepEqual(troco, trocoEsperado);
+      });
+
       test("Teste troco simples", (assert) => {
         const troco = calcularTroco(100, 150);
         const trocoEsperado = [50];
         assert.deepEqual(troco, trocoEsperado);
-      })
+      });
+
+      test("Teste troco complexo", (assert) => {
+        const troco = calcularTroco(75, 200);
+        const trocoEsperado = [100, 20, 5];
+        assert.deepEqual(troco, trocoEsperado);
+      });
+
+      test("Teste troco muito complexo", (assert) => {
+        const troco = calcularTroco(63, 500);
+        const trocoEsperado = [200, 200, 20, 10, 5, 2];
+        assert.deepEqual(troco, trocoEsperado);
+      });
     </script>
 
   </body>
